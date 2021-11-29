@@ -31,6 +31,37 @@ router.get("/registers/:id", async (req, res) => {
     }
 })
 
+//update employee
+router.put("/registers/:id", async(req,res)=>{
+    try{
+        const _id = req.params.id;
+        const updateEmployee = await Register.findByIdAndUpdate(_id, req.body,
+            {new:true});
+        res.send(updateEmployee);
+
+    }catch(error)
+    {
+        res.status(400).send(error);
+    }
+});
+
+//delete Employee
+router.delete("/registers/:id", async(req,res)=>{
+    try{
+        const deleteEmployee = await  Register.findByIdAndDelete( req.params.id);
+        if(!req.params.id)
+        {
+            return res.status(400).send("id not found");
+        }
+        res.send(deleteEmployee);
+    }
+    catch(err)
+    {
+        res.status(500).send(err);
+    }
+
+});
+
 //create a new user in our database
 router.post("/registers", async (req, res) => {
     console.log("---REQUEST CALL---38")

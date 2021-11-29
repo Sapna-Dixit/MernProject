@@ -5,6 +5,7 @@ require("./db/conn");
 const port = process.env.PORT || 8000;
 const empRoute = require("./routes/empRegister");
 
+
 app.use(express.json());
 app.use("/empRegister", empRoute);
 
