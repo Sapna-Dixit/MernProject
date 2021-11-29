@@ -77,37 +77,5 @@ router.post("/registers", async (req, res) => {
         console.log("something went wrong.!!");
     }
 });
-
-//user login 
-router.post("/registers", function(req, res){
-       try{
-        const email = req.body.email;
-        const password = req.body.password;
-
-    //     const useremail = await Register.findOne({email:email});
-
-    //     if(useremail.password === password)
-    //     {
-    //         res.status(201).send("Login Successfully...!!!");
-    //     }
-    //     else
-    //     {
-    //         res.status(400).send("Invalid details...!!");
-    //     }
-
-        Register.findOne(({email:email, password:password},function(err, user){
-            if(err)
-            {
-
-            }
-        }))
-
-       }
-       catch(err)
-       {
-        res.status(400).send("Invalid login crediantials!!");
-       }
-})
-
 module.exports = router;
 

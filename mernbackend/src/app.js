@@ -12,10 +12,11 @@ require("./db/conn");
 
 const port = process.env.PORT || 8000;
 const empRoute = require("./routes/empRegister");
-
+const loginRoute = require("./routes/empLogin");
 
 app.use(express.json());
 app.use("/empRegister", empRoute);
+app.use("/login",loginRoute);
 
 
 app.listen(port, ()=>{
