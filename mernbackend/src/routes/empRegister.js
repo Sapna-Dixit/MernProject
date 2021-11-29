@@ -18,11 +18,11 @@ router.get("/registers", async (req, res) => {
 
 //get request for individual documents
 
-router.get("/registers/:phone", async (req, res) => {
+router.get("/registers/:id", async (req, res) => {
     try {
 
-        const phone = req.params.phone;
-        const getEmployee = await Register.findOne({phone:phone});
+        const _id = req.params.id;
+        const getEmployee = await Register.findById(_id);
         res.send(getEmployee);
 
 
@@ -32,10 +32,10 @@ router.get("/registers/:phone", async (req, res) => {
 })
 
 //update employee
-router.put("/registers/:phone", async(req,res)=>{
+router.put("/registers/:id", async(req,res)=>{
     try{
-        const phone = req.params.phone;
-        const updateEmployee = await Register.findOneAndUpdate(phone, req.body,
+        const _id = req.params.id;
+        const updateEmployee = await Register.findByIdAndUpdate(_id, req.body,
             {new:true});
         res.send(updateEmployee);
 
@@ -46,10 +46,11 @@ router.put("/registers/:phone", async(req,res)=>{
 });
 
 //delete Employee
-router.delete("/registers/:phone", async(req,res)=>{
+router.delete("/registers/:id", async(req,res)=>{
     try{
-        const deleteEmployee = await  Register.findOneAndDelete( req.params.phone);
-        if(!req.params.phone)
+        const _id = req.params.id;
+        const deleteEmployee = await  Register.findByIdAndDelete(_id);
+        if(!_id)
         {
             return res.status(400).send(" not found");
         }
@@ -78,28 +79,35 @@ router.post("/registers", async (req, res) => {
 });
 
 //user login 
-router.post("/registers", async(req, res)=>{
-    try{
-     const email = req.body.email;
-     const password = req.body.password;
+router.post("/registers", function(req, res){
+       try{
+        const email = req.body.email;
+        const password = req.body.password;
 
-     const useremail = await Register.findOne({email:email});
+    //     const useremail = await Register.findOne({email:email});
 
-     if(useremail.password === password)
-     {
-         res.status(201).send("Login Successfully...!!!");
-     }
-     else
-     {
-         res.status(400).send("Invalid details...!!");
-     }
+    //     if(useremail.password === password)
+    //     {
+    //         res.status(201).send("Login Successfully...!!!");
+    //     }
+    //     else
+    //     {
+    //         res.status(400).send("Invalid details...!!");
+    //     }
 
-    }
-    catch(err)
-    {
-     res.status(400).send("Invalid login crediantials!!");
-    }
-});
+        Register.findOne(({email:email, password:password},function(err, user){
+            if(err)
+            {
+
+            }
+        }))
+
+       }
+       catch(err)
+       {
+        res.status(400).send("Invalid login crediantials!!");
+       }
+})
 
 module.exports = router;
 
