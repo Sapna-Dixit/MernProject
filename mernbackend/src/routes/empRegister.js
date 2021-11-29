@@ -73,6 +73,31 @@ router.post("/registers", async (req, res) => {
 
     } catch (error) {
         res.status(400).send(error);
+        console.log("something went wrong.!!");
+    }
+});
+
+//user login 
+router.post("/registers", async(req, res)=>{
+    try{
+     const email = req.body.email;
+     const password = req.body.password;
+
+     const useremail = await Register.findOne({email:email});
+
+     if(useremail.password === password)
+     {
+         res.status(201).send("Login Successfully...!!!");
+     }
+     else
+     {
+         res.status(400).send("Invalid details...!!");
+     }
+
+    }
+    catch(err)
+    {
+     res.status(400).send("Invalid login crediantials!!");
     }
 });
 

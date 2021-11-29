@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const  bcrypt  = require("bcryptjs");
+const jwt      = require("jsonwebtoken");
 
 const employeeSchema = new mongoose.Schema({
     firstName : {
@@ -29,6 +31,7 @@ const employeeSchema = new mongoose.Schema({
          type : String,
      }
 });
+
 
 const Register = new mongoose.model("Register", employeeSchema);
 
