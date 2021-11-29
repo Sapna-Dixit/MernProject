@@ -18,11 +18,11 @@ router.get("/registers", async (req, res) => {
 
 //get request for individual documents
 
-router.get("/registers/:id", async (req, res) => {
+router.get("/registers/:phone", async (req, res) => {
     try {
 
-        const _id = req.params.id;
-        const getEmployee = await Register.findById(_id);
+        const phone = req.params.phone;
+        const getEmployee = await Register.findOne({phone:phone});
         res.send(getEmployee);
 
 
@@ -32,10 +32,10 @@ router.get("/registers/:id", async (req, res) => {
 })
 
 //update employee
-router.put("/registers/:id", async(req,res)=>{
+router.put("/registers/:phone", async(req,res)=>{
     try{
-        const _id = req.params.id;
-        const updateEmployee = await Register.findByIdAndUpdate(_id, req.body,
+        const phone = req.params.phone;
+        const updateEmployee = await Register.findOneAndUpdate(phone, req.body,
             {new:true});
         res.send(updateEmployee);
 
@@ -46,12 +46,12 @@ router.put("/registers/:id", async(req,res)=>{
 });
 
 //delete Employee
-router.delete("/registers/:id", async(req,res)=>{
+router.delete("/registers/:phone", async(req,res)=>{
     try{
-        const deleteEmployee = await  Register.findByIdAndDelete( req.params.id);
-        if(!req.params.id)
+        const deleteEmployee = await  Register.findOneAndDelete( req.params.phone);
+        if(!req.params.phone)
         {
-            return res.status(400).send("id not found");
+            return res.status(400).send(" not found");
         }
         res.send(deleteEmployee);
     }
