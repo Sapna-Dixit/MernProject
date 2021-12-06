@@ -77,5 +77,15 @@ router.post("/registers", async (req, res) => {
         console.log("something went wrong.!!");
     }
 });
+
+//Search api  for employee
+
+router.get("/search/:firstName", async(req, res)=>{
+    var regex = RegExp(req.params.firstName, 'i');
+     await  Register.find({firstName :regex}).then((result)=>{
+        res.status(200).json(result);
+    })
+})
+
 module.exports = router;
 

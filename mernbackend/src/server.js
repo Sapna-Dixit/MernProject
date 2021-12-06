@@ -6,9 +6,7 @@ const empRoute = require("./routes/empRegister");
 const loginRoute = require("./routes/empLogin");
 const cors = require("cors");
 app.use(
-    cors({
-        exposedHeaders : [x-auth-token],
-    })
+    cors()
 );
 
 app.use(express.json());
